@@ -35,16 +35,30 @@ defmodule Customer do
 	def create_customers(num_c) do	
 	#Creating customer PIDS
 	customers = (1..num_c) |> Enum.map(fn (n) -> spawn(__MODULE__, :somethingelse, []) end)
-	IO.puts"New cust PID #{inspect customers}"	
+	#IO.puts"New cust PID #{inspect customers}"	
 	#Putting customers to sleep for random time (to simulate customers arriving at different times)
-	goodnight(customers)
+	good_night(customers, num_c, 0)
 	end
 
-	def goodnight(customers) do
-	IO.puts"Customers are here to sleep #{inspect customers}"
+	def good_night(customers, num_c, index) when num_c > 0 do
+	currentcustomer = Enum.at(customers,index)
+	IO.puts"#{inspect self()} PROCESS -- Customers are here to sleep #{inspect currentcustomer}"
+	#time_sleep = :rand.uniform(4000)
+	#:timer.sleep(time_sleep)
+	#IO.puts"Just woke up"
+	good_night(customers, num_c-1, index+1)
+	send(currentcustomer, {:arrival, currentcustomer})
 	end
+	def good_night(customers, 0, index) do
+	IO.puts("All customers are asleep")
+	end	
 
 	def somethingelse do
+		receive do
+		{:arrival, customerpid} ->
+				IO.puts(" #{inspect self()} GOT CUSTOMER #{inspect customerpid}")
+				
+		end		
 	end
 
 end	
