@@ -48,7 +48,7 @@ defmodule Customer do
 	#Putting customers to sleep for random time (to simulate customers arriving at different times)
 	good_night(customers, num_c, 0)
 	end
-
+	#Puts customers to sleep
 	def good_night(customers, num_c, index) when num_c > 0 do
 	currentcustomer = Enum.at(customers,index)
 	#IO.puts"#{inspect self()} PROCESS -- Customers are here to sleep #{inspect currentcustomer}"
