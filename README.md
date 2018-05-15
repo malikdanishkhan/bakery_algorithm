@@ -1,6 +1,6 @@
 # BakeryAlgorithm
 
-**TODO: Add description**
+Implementation of Lamport's Bakery Algorithm in Elixir to make use of multiple cores by Danish Malik and Kyle DeBates.
 
 ## Installation
 
